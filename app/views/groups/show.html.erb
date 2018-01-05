@@ -22,7 +22,7 @@
 <p><%= @group.description %></p>
 <h3>Join /Leave Group Button</h3>
 <% if @group.members.include? current_user.id %>
-<%= @group.members %>
+
 		<form action="<%= members_delete_path %>" method="post" >
 			<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
 			<input type ='hidden' name='_method' value='delete'/>
@@ -30,8 +30,7 @@
 			<input type="submit" name="add" value="Leave Group">
 		</form>
 <% else %>
-<%= current_user.id %>
-<%= @group.members.include %>
+
 	<form action="<%= member_create_path %>" method="post" >
 			<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
 			<input type ='hidden' name='member[group_id]' value='<%= @group.id %>'>
