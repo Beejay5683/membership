@@ -1,0 +1,58 @@
+
+<table>
+	<tr>
+		<td>
+			<form action="<%= logout_path %>" method="post">
+				<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+				<input type ='hidden' name='_method' value='delete'/>
+				<button name="" value="">Log Out</button> 
+			</form>
+		</td>
+		<td>
+			<form action="<%= groups_path %>" method="get">
+				<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+				<button name="" value="">Home</button> 
+			</form>
+		</td>
+
+	</tr>
+</table>
+
+<h2><%= @group.title %></h2>
+<p><%= @group.description %></p>
+<h3>Join /Leave Group Button</h3>
+<% if @group.members.include? current_user.id %>
+<%= @group.members %>
+		<form action="<%= members_delete_path %>" method="post" >
+			<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+			<input type ='hidden' name='_method' value='delete'/>
+			<input type ='hidden' name='group_id' value='<%= @group.id %>'>
+			<input type="submit" name="add" value="Leave Group">
+		</form>
+<% else %>
+<%= current_user.id %>
+<%= @group.members.include %>
+	<form action="<%= member_create_path %>" method="post" >
+			<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+			<input type ='hidden' name='member[group_id]' value='<%= @group.id %>'>
+			<input type="submit" name="add" value="Join Group">
+		</form>
+<% end %>
+
+
+<% if flash[:message] %>
+	<h4><%= flash[:message] %></h4>
+<% end %>
+<dl>
+	<% if @group.user == current_user %>
+	<dt>Created By: <b>YOU</b></dt>
+	<% else %>
+	<dt>Created By: <%= @group.user.first_name %></dt>
+	<% end %>
+	<dt>Members:</dt>
+	<% @group.users_added.group(:id).each do |member| %>
+		<dd><%= member.first_name %> <%= member.last_name %></dd>
+	<% end %>
+</dl>
+
+

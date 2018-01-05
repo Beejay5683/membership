@@ -1,0 +1,67 @@
+
+<h2>Welcome!</h2>
+<h4>Please login or register below</h4>
+
+<div id="register">
+	<h3>Register</h3>
+	<table>
+		<form action="<%= create_path %>" method="post">
+			<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+
+			<tr>
+				<td><label>First Name</label></td>
+				<td><input type="text" name="user[first_name]" placeholder="First Name"></td>
+			</tr>
+
+			<tr>
+				<td><label>Last Name</label></td>
+				<td><input type="text" name="user[last_name]" placeholder="Last Name"></td>
+			</tr>
+
+			<tr>
+				<td><label>Email</label></td>
+				<td><input type="text" name="user[email]" placeholder="Email"></td>
+			</tr>
+
+			<tr>
+				<td><label>Password</label></td>
+				<td><input type="password" name="user[password]" placeholder="Password"></td>
+			</tr>
+
+			<tr>
+				<td><label>Password Confirmation</label></td>
+				<td><input type="password" name="user[password_confirmation]" placeholder="Password Confirmation"></td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td><input type="submit" name="submit" value="Register"></td>
+			</tr>
+
+		</form>
+	</table>
+</div>
+<div id="login">
+	<h3>Login</h3>
+
+	<table>
+	<form action="<%= login_path %>" method="post">
+		<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+
+		<tr>
+			<td><label>Email:</label></td>
+			<td><input type='text' name='email' placeholder='Email' /></td>
+		</tr>
+
+		<tr>	
+			<td><label>Password:</label></td>
+			<td><input type='password' name='password' placeholder='Password' /></td>
+		</tr>
+
+		<tr>	
+			<td></td>
+			<td><input type='submit' value='Login' /></td>
+		</tr>
+		
+	</form>
+</div>

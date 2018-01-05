@@ -1,0 +1,55 @@
+
+<h2> Hello, <%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %></h2>
+
+<form action="<%= logout_path %>" method="post">
+	<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+	<input type ='hidden' name='_method' value='delete'/>
+	<button name="" value="">Log Out</button> 
+</form>
+
+
+<h2>Here are the Groups you may join!</h2>
+<dl>
+	<% if @groups %>
+		<% @groups.each do |group| %>
+		<dt><a href="<%= groups_show_path group.id %>"><%= group.title %></a></dt>
+				<dd>Members: <%= group.members.count %></dd>
+				<dd><%= group.description %></dd>
+				<% if group.user == current_user %>
+				<dd>
+					<form action="<%= groups_delete_path %>" method="post">
+						<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'/>
+						<input type ='hidden' name='_method' value='delete'/>
+						<input type ='hidden' name='group_id' value='<%= group.id %>'/>
+						<button name="" value="">Delete Group</button> 
+					</form>
+				</dd>
+				<% end %>
+		<% end %>
+	<% end %>
+
+</dl>
+
+<hr>
+
+<% if flash[:message] %>
+	<h4><%= flash[:message] %></h4>
+<% end %>
+<h3>Add Group</h3>
+<table>
+	<form action="<%= groups_create_path %>" method="post" >
+		<input type ='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+		<tr>
+			<td><label>Group Title</label></td>
+			<td><input type="text" name="group[title]" /></td>
+		</tr>
+		<tr>
+			<td><label>Description</label></td>
+			<td><input type="text" name="group[description]" /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" name="submit" value="Add Group" /></td>
+		</tr>	
+	</form>
+</table>
